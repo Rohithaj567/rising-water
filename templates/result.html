@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Prediction result | Rising Water</title><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body>
+<header class="topbar"><a class="brand" href="{{ url_for('home') }}"><span class="brand-icon">≈</span> RISING WATER</a><nav><a href="{{ url_for('home') }}">Predict</a><a href="{{ url_for('about') }}">About</a></nav></header>
+<main class="page-shell result-shell">
+  <section class="result-card">
+    <p class="eyebrow">MODEL PREDICTION</p>
+    <h1>Estimated flood risk</h1>
+    {% if result.risk == "High" %}
+      <div class="risk-symbol high">!</div><p class="risk-label high-text">HIGHER ESTIMATED RISK</p>
+      <p class="result-description">The model classified the submitted indicators in the higher-risk category. Review local conditions and official advisories.</p>
+    {% else %}
+      <div class="risk-symbol low">✓</div><p class="risk-label low-text">LOWER ESTIMATED RISK</p>
+      <p class="result-description">The model classified the submitted indicators in the lower-risk category. A low model estimate does not mean flooding is impossible.</p>
+    {% endif %}
+    <div class="probability-panel">
+      <div class="probability-top"><span>Model probability for high-risk class</span><strong>{{ result.percentage }}%</strong></div>
+      <div class="meter"><span style="width: {{ result.percentage }}%"></span></div>
+      <small>Classification threshold: 50%</small>
+    </div>
+    <h2>Submitted indicators</h2>
+    <div class="submitted-grid">
+      {% for name, value in result.values.items() %}<div><span>{{ name }}</span><strong>{{ value }}</strong></div>{% endfor %}
+    </div>
+    <a class="primary-button link-button" href="{{ url_for('home') }}">← Make another prediction</a>
+  </section>
+  <p class="disclaimer"><strong>Safety note:</strong> This result is not a warning, forecast, or substitute for official information. Use local government alerts and emergency guidance for decisions.</p>
+</main>
+<footer>Rising Water · Academic machine-learning project</footer>
+</body></html>

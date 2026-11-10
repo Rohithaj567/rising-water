@@ -1,0 +1,5 @@
+{
+  "name": "XGBoost",
+  "file": "xgboost_flood_classifier.json",
+  "format": "xgboost_json"
+}
